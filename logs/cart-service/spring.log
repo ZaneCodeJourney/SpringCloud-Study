@@ -1,0 +1,49 @@
+09:47:46:268  INFO 23096 --- [main] com.hmall.cart.CartApplication           : Starting CartApplication using Java 11.0.23 on LAPTOP-TTM0UI9D with PID 23096 (D:\SpringCloud\hmall\cart-service\target\classes started by 12589 in D:\SpringCloud\hmall)
+09:47:46:275 DEBUG 23096 --- [main] com.hmall.cart.CartApplication           : Running with Spring Boot v2.7.12, Spring v5.3.27
+09:47:46:276  INFO 23096 --- [main] com.hmall.cart.CartApplication           : The following 1 profile is active: "local"
+09:47:48:163  INFO 23096 --- [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=7a1afba0-1c55-332e-926f-040884a7730f
+09:47:48:689  INFO 23096 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8082 (http)
+09:47:48:706  INFO 23096 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+09:47:48:707  INFO 23096 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.75]
+09:47:48:893  INFO 23096 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+09:47:48:893  INFO 23096 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2551 ms
+09:47:51:133  INFO 23096 --- [main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+09:47:53:374  INFO 23096 --- [main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+09:47:53:542  WARN 23096 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'cartController' defined in file [D:\SpringCloud\hmall\cart-service\target\classes\com\hmall\cart\controller\CartController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'cartServiceImpl': Unsatisfied dependency expressed through field 'baseMapper'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'cartMapper' defined in file [D:\SpringCloud\hmall\cart-service\target\classes\com\hmall\cart\mapper\CartMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/baomidou/mybatisplus/autoconfigure/MybatisPlusAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'identifierGenerator' defined in class path resource [com/baomidou/mybatisplus/autoconfigure/IdentifierGeneratorAutoConfiguration$InetUtilsAutoConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator]: Factory method 'identifierGenerator' threw exception; nested exception is java.lang.NoSuchMethodError: com.baomidou.mybatisplus.core.config.GlobalConfig.getWorkerId()Ljava/lang/Long;
+09:47:53:545  INFO 23096 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+09:47:53:562  INFO 23096 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+09:47:53:591 ERROR 23096 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+An attempt was made to call a method that does not exist. The attempt was made from the following location:
+
+    com.baomidou.mybatisplus.autoconfigure.IdentifierGeneratorAutoConfiguration$InetUtilsAutoConfig.identifierGenerator(IdentifierGeneratorAutoConfiguration.java:52)
+
+The following method did not exist:
+
+    com.baomidou.mybatisplus.core.config.GlobalConfig.getWorkerId()Ljava/lang/Long;
+
+The calling method's class, com.baomidou.mybatisplus.autoconfigure.IdentifierGeneratorAutoConfiguration$InetUtilsAutoConfig, was loaded from the following location:
+
+    jar:file:/C:/Users/12589/.m2/repository/com/baomidou/mybatis-plus-boot-starter/3.4.3/mybatis-plus-boot-starter-3.4.3.jar!/com/baomidou/mybatisplus/autoconfigure/IdentifierGeneratorAutoConfiguration$InetUtilsAutoConfig.class
+
+The called method's class, com.baomidou.mybatisplus.core.config.GlobalConfig, is available from the following locations:
+
+    jar:file:/C:/Users/12589/.m2/repository/com/baomidou/mybatis-plus-core/3.5.3.1/mybatis-plus-core-3.5.3.1.jar!/com/baomidou/mybatisplus/core/config/GlobalConfig.class
+
+The called method's class hierarchy was loaded from the following locations:
+
+    com.baomidou.mybatisplus.core.config.GlobalConfig: file:/C:/Users/12589/.m2/repository/com/baomidou/mybatis-plus-core/3.5.3.1/mybatis-plus-core-3.5.3.1.jar
+
+
+Action:
+
+Correct the classpath of your application so that it contains compatible versions of the classes com.baomidou.mybatisplus.autoconfigure.IdentifierGeneratorAutoConfiguration$InetUtilsAutoConfig and com.baomidou.mybatisplus.core.config.GlobalConfig
+
