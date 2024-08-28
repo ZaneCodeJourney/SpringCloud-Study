@@ -18,7 +18,7 @@ This combination of technologies enables the system to handle high concurrency, 
 
 # Overview
 
-![003](assets/iamges/003.png)
+![003](assets/images/003.png)
 
 ## Code Structure
 
@@ -61,7 +61,7 @@ Port mapping can be achieved using the -p option with docker run;
 docker run -d -p 8080:80 nginx
 ```
 
-![004](assets/iamges/004.png)
+![004](assets/images/004.png)
 
 ## File Mapping
 
@@ -77,7 +77,7 @@ Data persistence can be achieved using the -v option with docker run;
 docker run -d -p 8081:80 -v /tmp/text:/usrs/share/nginx/html nginx
 ```
 
-![005](assets/iamges/005.png)
+![005](assets/images/005.png)
 
 ## Docker containers
 
@@ -144,7 +144,7 @@ In the early stages of monolithic applications, when applications were relativel
 - Deployment is clear and simple.
 - Horizontal scaling is effortless.
 
-![006](assets/iamges/006.png)
+![006](assets/images/006.png)
 
 However, as time passes and the monolithic application includes more and more functions, with the application's `size` growing larger, the drawbacks of monolithic applications gradually become apparent:
 
@@ -162,11 +162,11 @@ Modularity is the foundation for developing large, complex applications. When a 
 - In monolithic architecture, modules are typically defined by a set of structures provided by the programming language (for example, packages in Java or jar files). However, with modules obtained this way, code from different modules can still reference each other, leading to chaotic object dependencies between modules.
 - Microservice architecture uses microservices as the unit of modularity. To access a service, you can only use the API provided by the service externally. Thus, the service's API builds an insurmountable boundary for itself, and you cannot bypass the API to access the internal classes of the service. Using microservice architecture can solve the pain points of large monolithic applications.
 
-![007](assets/iamges/007.png)
+![007](assets/images/007.png)
 
 ## Use Spring Cloud in this project
 
-![008](assets/iamges/008.png)
+![008](assets/images/008.png)
 
 # Nacos
 
@@ -187,12 +187,12 @@ In this project, we mainly use Nacos to manage service.
 
 Nacos primarily adopts a Client-Server(C-S) architecture for implementation:
 
-![010](assets/iamges/010.png)
+![010](assets/images/010.png)
 
 - NacosServer implements the functionality of a registry center and can run independently.
 - NacosDiscoveryClient is responsible for helping service instances access NacosServer, implementing service registration and automatic discovery.
 
-![009](assets/iamges/009.png)
+![009](assets/images/009.png)
 
 ## Configuration manage
 
@@ -205,15 +205,15 @@ To solve the above problems, we need to introduce a new role in our microservice
 
 Nacos provides multiple dimensions to help us distinguish different configurations. Their relationship is shown in the following diagram:
 
-![012](assets/iamges/012.png)
+![012](assets/images/012.png)
 
 Actual management:
 
-![011](assets/iamges/011.png)
+![011](assets/images/011.png)
 
 # Gateway
 
 In this project, the API gateway is a server that serves as the sole entry point to the system.
 The core principle of the API gateway approach is that all clients and consumers access microservices through a unified gateway, where all non-business functions are handled at the gateway layer. Typically, the gateway provides REST/HTTP access APIs.
 
-![014](assets/iamges/014.png)
+![014](assets/images/014.png)
