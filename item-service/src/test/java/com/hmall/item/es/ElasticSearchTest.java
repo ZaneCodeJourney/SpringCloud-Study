@@ -9,10 +9,15 @@ import org.apache.http.HttpHost;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,12 +26,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 
-@SpringBootTest(properties = "spring.profiles.active=local")
-public class ElasticDocumentTest {
+//@SpringBootTest(properties = "spring.profiles.active=local")
+public class ElasticSearchTest {
 
     private RestHighLevelClient client;
-    @Autowired
-    private IItemService itemService;
 
     @BeforeEach
     void setUp() {
@@ -34,37 +37,33 @@ public class ElasticDocumentTest {
                 HttpHost.create("http://192.168.235.128:9200")
         ));
     }
-
     @Test
-    void testAddDocument() throws IOException {
-        // 1.根据id查询商品数据
-        Item item = itemService.getById(100002644680L);
-        // 2.转换为文档类型
-        ItemDoc itemDoc = BeanUtil.copyProperties(item, ItemDoc.class);
-        // 3.将ItemDTO转json
-        String doc = JSONUtil.toJsonStr(itemDoc);
-
-        // 1.准备Request对象
-        IndexRequest request = new IndexRequest("items").id(itemDoc.getId());
-        // 2.准备Json文档
-        request.source(doc, XContentType.JSON);
+    void testMatchAll() throws IOException {
+        // 1.创建Request
+        SearchRequest request = new SearchRequest("items");
+        // 2.组织请求参数
+        request.source().query(QueryBuilders.boolQuery().must(QueryBuilders.matchQuery("name", "牛奶")));
         // 3.发送请求
-        client.index(request, RequestOptions.DEFAULT);
+        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+        // 4.解析响应
+        handleResponse(response);
     }
 
-    @Test
-    void testGetDocumentById() throws IOException {
-        // 1.准备Request对象
-        GetRequest request = new GetRequest("items").id("100002644680");
-        // 2.发送请求
-        GetResponse response = client.get(request, RequestOptions.DEFAULT);
-        // 3.获取响应结果中的source
-        String json = response.getSourceAsString();
-
-        ItemDoc itemDoc = JSONUtil.toBean(json, ItemDoc.class);
-        System.out.println("itemDoc= " + itemDoc);
+    private void handleResponse(SearchResponse response) {
+        SearchHits searchHits = response.getHits();
+        // 1.获取总条数
+        long total = searchHits.getTotalHits().value;
+        System.out.println("共搜索到" + total + "条数据");
+        // 2.遍历结果数组
+        SearchHit[] hits = searchHits.getHits();
+        for (SearchHit hit : hits) {
+            // 3.得到_source，也就是原始json文档
+            String source = hit.getSourceAsString();
+            // 4.反序列化并打印
+            ItemDoc item = JSONUtil.toBean(source, ItemDoc.class);
+            System.out.println(item);
+        }
     }
-
     @AfterEach
     void tearDown() throws IOException {
         this.client.close();

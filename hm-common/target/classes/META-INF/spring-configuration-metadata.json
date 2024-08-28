@@ -25,7 +25,7 @@
       "name": "hm.mq.host",
       "type": "java.lang.String",
       "description": "rabbitmq的地址",
-      "defaultValue": "192.168.150.101"
+      "defaultValue": "192.168.235.128"
     },
     {
       "name": "hm.mq.port",
@@ -85,7 +85,7 @@
       "name": "hm.db.host",
       "type": "java.lang.String",
       "description": "数据库地址",
-      "defaultValue": "192.168.150.101"
+      "defaultValue": "192.168.235.128"
     },
     {
       "name": "hm.db.port",
